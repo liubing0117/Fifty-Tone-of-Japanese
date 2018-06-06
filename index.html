@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			body{
+				padding: 54px 40px;
+			}
+			div{
+				margin-top: 20px;
+			}
+			.tone-num{
+				outline:none;
+				width: 120px;
+				height: 22px;
+				border-radius: 2px;
+				border: #46c3c1 solid 1px;
+				padding: 2px 10px;
+			}
+			.title{
+				color: #666666;
+				font-size: 12px;
+			}
+			.content{
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #333333;
+			}
+			button{
+				outline:none;
+				height: 32px;
+				width: 100px;
+				background: #46c3c1;
+				color: #ffffff;
+				border: 0;
+				border-radius: 4px;
+			}
+			button:hover{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<span class="title">每次生成音节数量：</span><input type="text" placeholder="默认10个" class="tone-num"/>
+		</div>
+		<div  class="title">
+			<span class="title">是否带片假名：</span><input type="radio" name="flag" value="1"/>是
+			<input type="radio" name="flag" value="0" checked/>否
+		</div>
+		<div>
+			<button id="createrandom">生成随机音节</button>
+			<button id="showanswer">查看答案</button>
+		</div>
+		<div>
+			<p class="title">开始练习：</p><p class="content" id="questioncontent"></p>
+			<p class="title">练习答案：</p><p class="content" id="answercontent"></p>
+		</div>
+	</body>
+	<script type="text/javascript">
+        //初始号数据
+        var arr = [
+            ["あ","ア","a"],["い","イ","i"],["う","ウ","u"],["え","エ","e"],["お","オ","o"],
+            ["か","カ","ka"],["き","キ","ki"],["く","ク","ku"],["け","ケ","ke"],["こ","コ","ko"]
+        ];
+
+        var temp = [];	//生成随机数组
+        var flag = 0;  //是否带片假名
+        var low = 1;	//开始位置
+        var high = 10;	//结束位置
+        var total = 10;
+
+
+        //打印函数
+        function printTone() {
+            var questioncontent = "";
+            for(var questionflag=0;questionflag<total;questionflag++){
+                console.log(temp[questionflag][0])
+                questioncontent += arr[temp[questionflag][0]][temp[questionflag][1]] + " ";
+            }
+            document.getElementById("answercontent").innerText = "";
+            document.getElementById("questioncontent").innerText = questioncontent;
+        }
+
+
+        //绑定事件函数
+        window.onload = function(){
+            document.getElementById('createrandom').addEventListener("click",
+                //生成随机音节
+                function () {
+                    //获取单选框值
+                    var flaggroup = document.getElementsByName("flag");
+                    for(var o=0;o<flaggroup.length;o++){
+                        if(flaggroup[o].checked){
+                            flag = flaggroup[o].value;
+                        }
+                    }
+                    console.log("flag:"+flag)
+                    temp = [];
+                    for(var i=0;i<total;i++){
+                        if(flag==1){
+                            temp[i] = [Math.floor(Math.random()*(high-low+1)),Math.floor(Math.random()*2)];
+                        }else {
+                            temp[i] = [Math.floor(Math.random()*(high-low+1)),0];
+                        }
+                    }
+                    printTone(temp);
+                }
+			);
+            document.getElementById('showanswer').addEventListener("click",
+                //生成答案函数
+				function () {
+                console.log(1)
+                var answercontent = "";
+                for(var questionflag=0;questionflag<total;questionflag++){
+                    console.log(temp[questionflag][0])
+                    answercontent += arr[temp[questionflag][0]][2] + "   ";
+                }
+                document.getElementById("answercontent").innerText = answercontent;
+
+            });
+        }
+	</script>
+</html>
