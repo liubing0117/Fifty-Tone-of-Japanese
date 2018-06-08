@@ -61,14 +61,15 @@
         var arr = [
             ["あ","ア","a"],["い","イ","i"],["う","ウ","u"],["え","エ","e"],["お","オ","o"],
             ["か","カ","ka"],["き","キ","ki"],["く","ク","ku"],["け","ケ","ke"],["こ","コ","ko"],
-            ["さ","サ","sa"],["し","シ","si"],["す","ス","su"],["せ","セ","se"],["そ","ソ","so"]
+            ["さ","サ","sa"],["し","シ","si"],["す","ス","su"],["せ","セ","se"],["そ","ソ","so"],
+            ["た","タ","ta"],["ち","チ","ti"],["つ","ツ","tu"],["て","テ","te"],["と","ト","to"]
         ];
 
         var temp = [];	//生成随机数组
         var flag = 0;  //是否带片假名
         var low = 1;	//开始位置
         var high = 10;	//结束位置
-        var total = 10;	//每次生成音节数量
+        var total;	//每次生成音节数量
 
         //打印函数
         function printTone() {
@@ -89,7 +90,7 @@
                     //获取单选框值
                     var flaggroup = document.getElementsByName("flag");
                     //获取生成数量
-					total = document.getElementById("tonenum").value;
+					total = document.getElementById("tonenum").value || 10;
                     for(var o=0;o<flaggroup.length;o++){
                         if(flaggroup[o].checked){
                             flag = flaggroup[o].value;
@@ -111,7 +112,7 @@
 				function () {
                 var answercontent = "";
                 for(var questionflag=0;questionflag<total;questionflag++){
-                    answercontent += arr[temp[questionflag][0]][2] + "   ";
+                    answercontent += arr[temp[questionflag][0]][2] + " ";
                 }
                 document.getElementById("answercontent").innerText = answercontent;
 
